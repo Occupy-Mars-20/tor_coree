@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="shortcut icon" href="assets/img/favicon.png" type="image/png"> -->
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+    
+    <title>Trip on Review</title>
+</head>
+
+<body style="background-color:lightblue;">
+    {% include 'user/nav.html' %}
+    
+    <a class="button" style="cursor: pointer;padding: .5rem 1rem; margin-left: 145px; margin-top:80px;" onclick="history.back()">Back</a>
+    <center><h1 class="mt-5" style="margin-top:15%;margin-bottom:20%" >Login Required! <a  href="{% url 'userlogin' %}">Login Now</a> </h1></center>
+
+
+{% include 'user/footer.html' %}
+             <!--========== SCROLL UP ==========-->
+             <a href="#" class="scrollup" id="scroll-up">
+                <i class="ri-arrow-up-line scrollup__icon"></i>
+            </a>
+            
+    
+            <!--=============== SCROLL REVEAL===============-->
+            <script src="{% static 'js/scrollreveal.min.js' %}"></script>
+            
+            <!--=============== SWIPER JS ===============-->
+            <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    
+            <!--=============== MAIN JS ===============-->
+            <script src="{% static 'js/main.js' %}"></script>

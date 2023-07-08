@@ -1,0 +1,61 @@
+{% extends 'company/base.html' %}
+{% load static %}
+{% block data %}
+{% include 'company/nav.html' %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+<section class="section">
+    <a class="button" style="cursor: pointer;padding: .5rem 1rem; margin-left: 145px;color:white;" onclick="history.back()">Back</a>
+
+    {% if trip %}
+    <h2 class="section__title" >All Trips</h2>
+
+    <div class="place__container grid">
+
+        {% for t in trip %}
+        <div class="place__card">
+            <img src="{{t.image.url}}" alt="{{t.image.url}}" class="place__img">
+
+            <div class="place__content">
+                <a href="#"  style="color:white" class="place__rating">
+                    <i class="ri-star-line place__rating-icon"></i>
+                    <u>
+                        {% for star in feed %}
+                        {% if star.tr_id.id == t.id %}
+                        <span class="place__rating-number">{{star.feed}}</span>
+                        {% endif %}
+                        {% endfor %}
+                    </u>
+                </a>
+
+                <div class="place__data">
+                    <h3 class="place__title">{{t.place}}</h3>
+                    <span class="place__subtitle">{{t.city}}</span>
+                    <span class="place__price">PKR {{t.price}}</span>
+                </div>
+            </div>
+
+            <a href="{% url 'addtrip' t.id %}" class="button button--flex place__button" style="text-decoration:none;">
+                Edit
+            </a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div >
+            <center><h1 style="margin-top:10%;margin-bottom:10%;">{{notadded}}</h1></center>
+        </div>
+        {% endif %}
+
+
+
+
+
+
+    </div>
+</section>
+
+
+
+
+{% include 'company/footer.html' %}
+{% endblock data %}

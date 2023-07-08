@@ -1,0 +1,170 @@
+{% load static %}
+{% if companynav %}
+
+<header class="header" id="header" style="background-color:lightblue;height:8%;">
+    <nav class="nav container" >
+        
+        <a href="{% url 'home' %}" class="nav__logo" style="color:black; margin-bottom:17px"><img src="{% static 'img/logoblack.png' %}" alt="logo" ></a>
+
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a href="{% url 'home' %}" class="nav__link" style="color:black">Home</a>
+                </li>
+                <li class="nav__item">
+                    <a href="{% url 'trending' %}" class="nav__link" style="color:black">Packages</a>
+                </li>
+                <li class="nav__item">
+                    <a href="{% url 'allreviews' %}" class="nav__link" style="color:black">AllTime Reviews</a>
+                </li>
+                {% if userloged %}
+                <li class="nav__item">
+                    <a href="{% url 'myorders' %}" class="nav__link" style="color:black">My Orders</a>
+                </li>
+                <li class="nav__item">
+                    <a href="{% url 'myreviews' %}" class="nav__link" style="color:black">My Reviews</a>
+                </li>
+                
+                {% if user != True %}
+                <li class="nav__item">
+                    <a  href="{% url 'userlogin' %}" style="background-color: rgba(20,80,92,255);
+                    border: none;
+                    color: white;
+                    padding: 8px 10px;
+                    text-align: center;
+                    text-decoration: none;
+                    cursor: pointer;
+                    font-size: 13px;
+                    border-radius: 12px;
+                    ">Login</a>
+                </li>
+                <li class="nav__item">
+                    <a  href="{% url 'companysignup' %}" style="background-color: rgba(20,80,92,255);
+                        border: none;
+                        color: white;
+                        padding: 8px 10px;
+                        text-align: center;
+                        text-decoration: none;
+                        cursor: pointer;
+                        font-size: 13px;
+                        border-radius: 12px;
+                      ">CompanyLogin</a>
+                    </li>
+                    {% endif %}
+                    {% if user == True %}
+                    <li class="nav__item">
+                        <a  href="{% url 'ulogout' %}" style="background-color: rgba(20,80,92,255);
+                        border: none;
+                        color: white;
+                        padding: 8px 10px;
+                        text-align: center;
+                        text-decoration: none;
+                        cursor: pointer;
+                        font-size: 13px;
+                        border-radius: 12px;
+                        ">Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </ul>
+
+
+            <i class="ri-close-line nav__close" id="nav-close"></i>
+        </div>
+
+        <div class="nav__toggle" id="nav-toggle">
+            <i class="ri-function-line" style="color:black;"></i>
+        </div>
+    </nav>
+</header>
+{% else %}
+
+<header class="header" id="header">
+    <nav class="nav container">
+        <a href="{% url 'home' %}" class="nav__logo logo__white"><img src="{% static 'img/logowhite.png' %}"  alt="logo" ></a>
+        <a href="{% url 'home' %}" class="nav__logo logo__black"><img src="{% static 'img/logoblack.png' %}"  alt="logo" ></a>
+        {% comment %} <a href="{% url 'home' %}" class="nav__logo">Trip on Review</a> {% endcomment %}
+        
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list" >
+                <li class="nav__item">
+                    <a href="{% url 'home' %}" class="nav__link active-link">Home</a>
+                </li>
+                <li class="nav__item">
+                    <a href="{% url 'trending' %}" class="nav__link" >Packages</a>
+                </li>
+                <li class="nav__item">
+                    <a href="{% url 'allreviews' %}" class="nav__link" >AllTime Reviews</a>
+                </li>
+                {% if userloged %}
+                <li class="nav__item">
+                    <a href="{% url 'myorders' %}" class="nav__link" >My Orders</a>
+                </li>
+                <li class="nav__item">
+                    <a href="{% url 'myreviews' %}" class="nav__link" >My Reviews</a>
+                </li>
+                {% endif %}
+
+                {% comment %} <li class="nav__item">
+                    <a href="#about" class="nav__link">About</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#discover" class="nav__link">Destinations</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#experience" class="nav__link">Experience</a>
+                </li> {% endcomment %}
+
+                {% if user != True %}
+                <li class="nav__item">
+                    <a  href="{% url 'userlogin' %}" style="background-color: rgba(20,80,92,255);
+                    border: none;
+                    color: white;
+                    padding: 8px 10px;
+                    text-align: center;
+                    text-decoration: none;
+                    cursor: pointer;
+                    font-size: 13px;
+                    border-radius: 12px;
+                    ">Login</a>
+                </li>
+                <li class="nav__item">
+                    <a  href="{% url 'companysignup' %}" style="background-color: rgba(20,80,92,255);
+                        border: none;
+                        color: white;
+                        padding: 8px 10px;
+                        text-align: center;
+                        text-decoration: none;
+                        cursor: pointer;
+                        font-size: 13px;
+                        border-radius: 12px;
+                      ">CompanyLogin</a>
+                    </li>
+                    {% endif %}
+                    {% if user == True %}
+                    <li class="nav__item">
+                        <a  href="{% url 'ulogout' %}" style="background-color: rgba(20,80,92,255);
+                        border: none;
+                        color: white;
+                        padding: 8px 10px;
+                        text-align: center;
+                        text-decoration: none;
+                        cursor: pointer;
+                        font-size: 13px;
+                        border-radius: 12px;
+                        ">Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            
+            
+            <i class="ri-close-line nav__close" id="nav-close"></i>
+        </div>
+        
+        <div class="nav__toggle" id="nav-toggle">
+            <i class="ri-function-line"></i>
+        </div>
+    </nav>
+</header>
+{% endif %}

@@ -1,0 +1,109 @@
+{% extends 'company/base.html' %}
+{% load static %}
+{% block data %}
+{% include 'company/nav.html' %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+<style>
+    .regcard{padding: 30px 40px;margin-top: 60px;margin-bottom: 60px;border: none !important;box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2)}
+    .blue-text{color: #00BCD4}
+    .form-control-label{margin-bottom: 0}
+    input, textarea, button{padding: 8px 15px;border-radius: 5px !important;margin: 5px 0px;box-sizing: border-box;border: 1px solid #ccc;font-size: 18px !important;font-weight: 300}
+    input:focus, textarea:focus{-moz-box-shadow: none !important;-webkit-box-shadow: none !important;box-shadow: none !important;border: 1px solid #00BCD4;outline-width: 0;font-weight: 400}
+    .btn-block{text-transform: uppercase;font-size: 15px !important;font-weight: 400;height: 43px;cursor: pointer}
+    .btn-block:hover{color: #fff !important}
+    button:focus{-moz-box-shadow: none !important;-webkit-box-shadow: none !important;box-shadow: none !important;outline-width: 0}
+</style>
+
+{% if isnot or isyes %}
+
+<div class="container-fluid px-1 py-5 mx-auto mt-5">
+    {% if isyes %}
+    <a class="button" style="cursor: pointer;padding: .5rem 1rem; margin-left: 145px; color:white;" onclick="history.back()">Back</a>
+    {% endif %}
+    <div class="row d-flex justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            {% if isyes %}
+            <h3>Update Company Details</h3>
+            {% else %}
+            <h3>Request Registeration</h3>
+            {% endif %}
+            <div class="card regcard">
+                <h5 class="text-center mb-4">Enter Details of your company</h5>
+                <form class="form-card" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">First Name<span class="text-danger"> *</span></label> <input type="text" id="fname" name="fname" value="{{isyes.fname}}" placeholder="Hassan" required> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Last Name<span class="text-danger"> *</span></label> <input type="text" id="lname" name="lname" value="{{isyes.lname}}" placeholder="Mustafa" required> </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Business Email<span class="text-danger"> *</span></label> <input type="email" id="email" name="email" value="{{isyes.email}}" placeholder="example@gmail.com" required> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Phone Number<span class="text-danger"> *</span></label> <input type="text" id="phone" name="phone" value="{{isyes.phone}}" placeholder="+923012345678" required> </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Company Name<span class="text-danger"> *</span></label> <input type="text" id="company" name="company" value="{{isyes.companyname}}" placeholder="Company Name" required> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Company City<span class="text-danger"> *</span></label> <input type="text" id="city" name="city" value="{{isyes.city}}" placeholder="City" required> </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        {% if isnot %}
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Company Image(400 X 600)<span class="text-danger"> *</span></label> <input type="file" accept="image/*" id="img" name="img" value="{{isyes.image}}" required> </div>
+                        {% comment %} <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label ">Currently:{{isyes.image}}</label> <img src="{{isyes.image.url}}" alt="Company image" width="60px"></div> {% endcomment %}
+                        {% endif %}
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Description<span class="text-danger"> *</span></label> <input type="text" id="desc" name="desc" value="{{isyes.description}}" placeholder="Description" required> </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        {% if isyes %}
+                        <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary">Update</button> </div>
+                        {% elif isnot %}
+                        <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary">Apply</button> </div>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endif %}
+
+
+
+
+
+{% if  obj %}
+<div class="container-fluid px-1 py-5 mx-auto mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-8 text-center">
+            <h1>Your Company</h1>
+            <div class="card regcard">
+                <center><img src="{{obj.image.url}}" alt="Avatar" width="180" class="mt-2" ></center>
+                <div >
+                    <span><b> Company Name: {{obj.companyname}}</b></span><br>
+                    <span><b> City: {{obj.city}}</b></span><br>
+                    <span><b> Email: {{obj.email}}</b></span><br>
+                    <span><b> Phone: {{obj.phone}}</b></span><br>
+                    <span><b> Description: {{obj.description}}</b></span>
+                    
+                </div>
+                <a href="{% url 'company' obj.id %}"><button class="button btn-sm mb-2" style="border-radius: 4px;padding: 16px; ">Edit</button></a>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endif %}
+
+    
+
+
+
+{% if underprocess %}
+<div >
+    <center><h1 class="mt-3">----------------</h1></center>
+    <center><h1 style="margin-top:10%;margin-bottom:10%;">{{underprocess}}</h1></center>
+</div>
+{% endif %}
+
+
+{% include 'company/footer.html' %}
+{% endblock data %}

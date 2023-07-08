@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+{% load static %}
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/png">
+
+        <!--=============== REMIXICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        
+        <!--=============== SWIPER CSS ===============-->
+        <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'css/order.css' %}">
+
+        <title>Trip on Review</title>
+    </head>
+    <body  class="gradient-custom-2">
+
+
+        <main class="main">
+            {% block data %}
+            
+            {% endblock data %}
+
+        </main>
+
+
+         <!--========== SCROLL UP ==========-->
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-line scrollup__icon"></i>
+        </a>
+
+        <!--=============== SCROLL REVEAL===============-->
+        <script src="{% static 'js/scrollreveal.min.js' %}"></script>
+        
+        <!--=============== SWIPER JS ===============-->
+        <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+
+        <!--=============== MAIN JS ===============-->
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>

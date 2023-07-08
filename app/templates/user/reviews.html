@@ -1,0 +1,242 @@
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- <link rel="shortcut icon" href="assets/img/favicon.png" type="image/png"> -->
+
+        <!--=============== REMIXICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        
+        <!--=============== SWIPER CSS ===============-->
+        <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+
+        <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+
+        <title>Trip on Review</title>
+        {% include 'user/nav.html' %}
+    </head>
+    <body style="background-color:lightblue;">
+
+<div class="container" style="margin-top: 85px;">
+    <a class="button" style="cursor: pointer;padding: .5rem 1rem; margin-left: 100px; color:white;" onclick="history.back()">Back</a>
+    <form method="GET" class="d-flex justify-content-center  py-2">
+      
+        {% if userreview %}
+        <input class="form-control me-2 w-50 search-bar" type="search" name="search" {% if search  %} value="{{search}}" {% endif %} placeholder="Enter feedback keywords" aria-label="Search">
+        {% elif reviewbycompany %}
+        <input class="form-control me-2 w-50 search-bar" type="search" name="search" {% if search  %} value="{{search}}" {% endif %} placeholder="Enter place name" aria-label="Search">
+        {% elif company %}
+        <input class="form-control me-2 w-50 search-bar" type="search" name="search" {% if search  %} value="{{search}}" {% endif %} placeholder="Enter company name" aria-label="Search">
+        {% elif placereview %}
+        <input class="form-control me-2 w-50 search-bar" type="search" name="search" {% if search  %} value="{{search}}" {% endif %} placeholder="Enter place name" aria-label="Search">
+        {% endif %}
+        <button class="btn btn-dark "   type="submit">Search</button>
+      </form>
+
+    {% if userreview %}
+    {% if reviews %}
+    <center><h2>My Reviews</h2></center>
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-10">
+            <div class="rounded">
+                <div class="table-responsive table-borderless">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sr #</th>
+                                <th>Order #</th>
+                                <th>Trip Place</th>
+                                <th>Company Name</th>
+                                <th>Feedback by</th>
+                                <th>Feedback Date</th>
+                                <th>Stars</th>
+                                <th>Feedback</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
+                            {% for review in reviews %}
+                          <td>{{forloop.counter}}</td>
+                          <td>{{review.order_id}}</td>
+                          {% for o in orders %}
+                          {% if o == review.order_id %}
+                          <td>{{o.trip_id.place}}</td>
+                          <td>{{o.trip_id.company_id.companyname}}</td>
+                          {% endif %}
+                          {% endfor %}
+                          <td>{{review.order_id.name}}</td>
+                          <td>{{review.feedback_date}}</td>
+                          <td>{{review.stars}}</td>
+                          <td>{{review.feedback}}</td>
+                          <td><a href="{% url 'editfeedback' review.id %}" class="badge badge-info">Edit</a></td>
+  
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<center><h1 style="margin-top:25%;margin-bottom:15%">No Feedbacks</h1></center>
+{% endif %}
+{% endif %}
+
+
+
+
+
+{% if reviewbycompany %}
+{% if company_review %}
+<center><h2>All Reviews</h2></center>
+<div class="d-flex justify-content-center row">
+    <div class="col-md-10">
+        <div class="rounded">
+            <div class="table-responsive table-borderless">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sr #</th>
+                            <th>Trip Place</th>
+                            <th>Company Name</th>
+                            <th>Feedback by</th>
+                            <th>Feedback Date</th>
+                            <th>Stars</th>
+                            <th>Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        {% for review in company_review %}
+                        <td>{{forloop.counter}}</td>
+                        {% for o in ord %}
+                        {% if o == review.order_id %}
+                        <td>{{o.trip_id.place}}</td>
+                        <td>{{o.trip_id.company_id.companyname}}</td>
+                        {% endif %}
+                        {% endfor %}
+                      <td>{{review.order_id.name}}</td>
+                      <td>{{review.feedback_date}}</td>
+                      <td>{{review.stars}}</td>
+                      <td>{{review.feedback}}</td>
+
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+{% else %}
+<center><h1 style="margin-top:25%;margin-bottom:15%">No Feedbacks</h1></center>
+{% endif %}
+{% endif %}
+
+
+
+{% if company %}
+{% if li_stars %}
+<center><h2>All Reviews</h2></center>
+<div class="d-flex justify-content-center row">
+    <div class="col-md-10">
+        <div class="rounded">
+            <div class="table-responsive table-borderless">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sr #</th>
+                            <th>Company Name</th>
+                            <th>No of Reviews</th>
+                            <th>Stars</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        {% for review in li_stars %}
+                      <td>{{forloop.counter}}</td>
+                      <td>{{review.company_id.companyname}}</td>
+                      <td>{{review.count}}</td>
+                      <td>{{review.feed}}</td>
+                      <td><a href="{% url 'reviewbycompany' review.company_id %}" class="badge badge-success">Reviews</a></td>
+                      
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+{% else %}
+<center><h1 style="margin-top:25%;margin-bottom:15%">No Feedbacks</h1></center>
+{% endif %}
+{% endif %}
+
+
+
+{% if placereview %}
+{% if place_review %}
+<center><h2>All Reviews</h2></center>
+<div class="d-flex justify-content-center row">
+    <div class="col-md-10">
+        <div class="rounded">
+            <div class="table-responsive table-borderless">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sr #</th>
+                            <th>Trip Place</th>
+                            <th>Company Name</th>
+                            <th>Feedback by</th>
+                            <th>Feedback Date</th>
+                            <th>Stars</th>
+                            <th>Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        {% for review in place_review %}
+                      <td>{{forloop.counter}}</td>
+                      {% for o in ord %}
+                      {% if o == review.order_id %}
+                      <td>{{o.trip_id.place}}</td>
+                      <td>{{o.trip_id.company_id.companyname}}</td>
+                      {% endif %}
+                      {% endfor %}
+                      <td>{{review.order_id.name}}</td>
+                      <td>{{review.feedback_date}}</td>
+                      <td>{{review.stars}}</td>
+                      <td>{{review.feedback}}</td>
+
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+{% else %}
+<center><h1 style="margin-top:25%;margin-bottom:15%">No Feedbacks</h1></center>
+{% endif %}
+{% endif %}
+</div>
+
+
+
+            <!--=============== MAIN JS ===============-->
+            <script src="{% static 'js/main.js' %}"></script>
+            {% include 'user/footer.html' %}

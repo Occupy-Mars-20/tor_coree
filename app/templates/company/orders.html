@@ -1,0 +1,77 @@
+{% extends 'company/base.html' %}
+{% load static %}
+{% block data %}
+{% include 'company/nav.html' %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+
+<div class="container" style="margin-top: 85px; ">
+    <a class="button" style="cursor: pointer;padding: .5rem 1rem; margin-left: 95px; color:white;" onclick="history.back()">Back</a>
+
+    {% if orders %}
+    <center><h2>Order Details</h2></center>
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-10">
+            <div class="rounded">
+                <div class="table-responsive table-borderless">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sr #</th>
+                                <th>Order #</th>
+                                <th>Order by</th>
+                                <th>Destination</th>
+                                <th>Persons #</th>
+                                <th>Total Price</th>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Review</th>
+                                <th>Action</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
+                          
+                            {% for order in orders %}
+                            {% for ordr in order %}
+                            <td>{{forloop.counter}}</td>
+                            <td>{{ordr.order_id}}</td>
+                            <td>{{ordr.name}}</td>
+                            <td>{{ordr.trip_id.place}}</td>
+                            <td>{{ordr.persons}}</td>
+                            <td>{% widthratio ordr.trip_id.price 1 ordr.persons %}</td>
+                            <td>{{ordr.order_date}}</td>
+                            {% if ordr.status %}
+                            <td><span class="badge badge-success">Fullfilled</span></td>
+                            {% else %}
+                            <td><span class="badge badge-danger">Pending</span></td>
+                            {% endif %}
+                            {% if ordr.review %}
+                            <td><span class="badge badge-success">Reviewed</span></td>
+                            {% else %}
+                            <td><span class="badge badge-danger">Not Reviewed</span></td>
+                            {% endif %}
+                            {% if ordr.status %}
+                            <td><span class="badge badge-success">Accepted</span></td>
+                            {% else %}
+                            <td><a href="{% url 'orderupdate' ordr.id %}" class="btn btn-sm btn-success text-white">Accept</a></td>
+                            {% endif %}
+                        </tr>
+                          {% endfor %}
+                          {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+<center><h1 style="margin-top:25%;margin-bottom:15%">{{noorder}}</h1></center>
+{% endif %}
+</div>
+    
+
+
+{% include 'company/footer.html' %}
+{% endblock data %}
